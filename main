@@ -1,0 +1,62 @@
+
+//Aula Prática 02
+//Trabalho Prático 1
+//Author : Rafael Baptista & André Passaradas
+
+
+
+#include <avr/io.h>
+#include "OS.h"
+
+uint8_t ledState = 0;             //    LED current state
+uint8_t lastButtonDirState;        //    Right Button previous state
+uint8_t currentButtonDirState;    //    Right Button current state
+
+uint8_t lastButtonEsqState;        //    Left Button previous state
+uint8_t currentButtonEsqState;    //    Left Button current state
+
+int main(void)
+{
+	DDRD=INPUT;
+	DDRB=OUTPUT;
+
+	currentButtonDirState = (PIND & (1<<BOTDIR));
+	currentButtonEsqState = (PIND & (1<<BOTESQ));
+
+	while (TRUE)
+	{
+
+		lastButtonEsqState    = currentButtonEsqState;    //    Saves the left button last state
+		currentButtonEsqState = (PIND & (1<<BOTESQ));    //    Reads the left button new state
+
+		lastButtonDirState    = currentButtonDirState;    // Saves the right button last state
+		currentButtonDirState = (PIND & (1<<BOTDIR));    // Reads the right button new state
+
+		if((lastButtonEsqState == OFF && currentButtonEsqState == (1<<BOTESQ))) {
+			ledState = (ledState == 0) ? 8 : LED_SHIFTESQ();    //    If the led state is 0 (OFF) sets it to 8 (last LED) ; Else do the left shift
+
+			PORTB=ledState;
+		}
+
+		if(lastButtonDirState == OFF && currentButtonDirState == (1<<BOTDIR)){
+			switch (ledState) {
+				case 8:                //    If the led state is 8 (last led) sets it to 0 (OFF)
+				ledState = 0;
+				break;
+
+				case 0:                //    If the led state is 0 (OFF) sets it to 1 (first led)
+				ledState = 1;
+				break;
+
+				default:            //    Else do the right shift
+				ledState = LED_SHIFTDIR();
+				break;
+			}
+			PORTB=ledState;
+		}
+
+	}
+
+}
+
+
