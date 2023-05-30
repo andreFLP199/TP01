@@ -1,0 +1,79 @@
+--- ../../../../crt1/gcrt1.S ---------------------------------------------------
+ CLR R1		Clear Register 
+ OUT 0x3F,R1		Out to I/O location 
+ SER R28		Set Register 
+ LDI R29,0x08		Load immediate 
+--- ../../../../crt1/gcrt1.S ---------------------------------------------------
+ OUT 0x3E,R29		Out to I/O location 
+ OUT 0x3D,R28		Out to I/O location 
+--- No source file -------------------------------------------------------------
+ LDI R18,0x01		Load immediate 
+ LDI R26,0x00		Load immediate 
+ LDI R27,0x01		Load immediate 
+ RJMP PC+0x0002		Relative jump 
+ ST X+,R1		Store indirect and postincrement 
+ CPI R26,0x05		Compare with immediate 
+ CPC R27,R18		Compare with carry 
+ BRNE PC-0x03		Branch if not equal 
+ CALL 0x00000048		Call subroutine 
+ JMP 0x0000008D		Jump 
+ JMP 0x00000000		Jump 
+--- C:\workspace\2ANO_22_23\arquitetura\TP_01\TP_01\Debug/.././main.c ----------
+ OUT 0x0A,R1		Out to I/O location 
+ SER R24		Set Register 
+ OUT 0x04,R24		Out to I/O location 
+ IN R24,0x09		In from I/O location 
+ ANDI R24,0x08		Logical AND with immediate 
+ STS 0x0103,R24		Store direct to data space 
+ IN R24,0x09		In from I/O location 
+ ANDI R24,0x04		Logical AND with immediate 
+ STS 0x0102,R24		Store direct to data space 
+ LDS R18,0x0102		Load direct from data space 
+ STS 0x0101,R18		Store direct to data space 
+ IN R24,0x09		In from I/O location 
+ ANDI R24,0x04		Logical AND with immediate 
+ STS 0x0102,R24		Store direct to data space 
+ LDS R25,0x0103		Load direct from data space 
+ STS 0x0104,R25		Store direct to data space 
+ IN R25,0x09		In from I/O location 
+--- C:\workspace\2ANO_22_23\arquitetura\TP_01\TP_01\Debug/.././main.c ----------
+ ANDI R25,0x08		Logical AND with immediate 
+ STS 0x0103,R25		Store direct to data space 
+ CPSE R18,R1		Compare, skip if equal 
+ RJMP PC+0x000D		Relative jump 
+--- No source file -------------------------------------------------------------
+ CPI R24,0x04		Compare with immediate 
+ BRNE PC+0x0B		Branch if not equal 
+ LDS R24,0x0100		Load direct from data space 
+ TST R24		Test for Zero or Minus 
+ BREQ PC+0x03		Branch if equal 
+ LSR R24		Logical shift right 
+ RJMP PC+0x0002		Relative jump 
+ LDI R24,0x08		Load immediate 
+ STS 0x0100,R24		Store direct to data space 
+ OUT 0x05,R24		Out to I/O location 
+ LDS R24,0x0104		Load direct from data space 
+ CPSE R24,R1		Compare, skip if equal 
+ RJMP PC-0x0021		Relative jump 
+ LDS R24,0x0103		Load direct from data space 
+ CPI R24,0x08		Compare with immediate 
+ BRNE PC-0x25		Branch if not equal 
+ LDS R24,0x0100		Load direct from data space 
+ TST R24		Test for Zero or Minus 
+ BREQ PC+0x06		Branch if equal 
+ CPI R24,0x08		Compare with immediate 
+ BRNE PC+0x08		Branch if not equal 
+ STS 0x0100,R1		Store direct to data space 
+ RJMP PC+0x0008		Relative jump 
+ LDI R24,0x01		Load immediate 
+ STS 0x0100,R24		Store direct to data space 
+ RJMP PC+0x0004		Relative jump 
+--- C:\workspace\2ANO_22_23\arquitetura\TP_01\TP_01\Debug/.././main.c ----------
+ LSL R24		Logical Shift Left 
+ STS 0x0100,R24		Store direct to data space 
+ LDS R24,0x0100		Load direct from data space 
+ OUT 0x05,R24		Out to I/O location 
+ RJMP PC-0x0039		Relative jump 
+--- No source file -------------------------------------------------------------
+ CLI 		Global Interrupt Disable 
+ RJMP PC-0x0000		Relative jump 
