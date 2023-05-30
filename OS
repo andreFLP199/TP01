@@ -1,0 +1,28 @@
+/*
+ * OS.h
+ *
+ * 
+ *  Author: Rafael Batista & André Passaradas
+ */ 
+
+
+#ifndef OS_H_
+#define OS_H_
+
+#define INPUT 0x00
+#define OUTPUT 0xFF
+
+#define BOTDIR    3
+#define BOTESQ    2
+
+#define    OFF 0
+#define ON    1
+
+#define TRUE 1
+
+#define LED_SHIFTDIR() (ledState << 1)
+#define LED_SHIFTESQ() (ledState >> 1)
+
+
+
+#endif /* OS_H_ */
